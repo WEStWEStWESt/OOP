@@ -10,27 +10,40 @@ public class Main {
 
         Nested.printStatic();
 
-        SimpleInterface normLambda = () -> System.out.println("in lambda");
-        normLambda.print();
+        SimpleInterface simpleLambda = () -> System.out.println("in lambda");
+        simpleLambda.print();
 
-        SimpleInterface norm = new SimpleInterface() {
+        /*
+        АНОМИМНЫЙ КЛАСС.
+        */
+        SimpleInterface anInterface = new SimpleInterface() {
             @Override
             public void print() {
-                System.out.println("anonimous class");
+                System.out.println("anonymous class");
             }
         };
-        norm.print();
+        anInterface.print();
     }
 
-    private static class Nested implements SimpleInterface {
+    /*
+    ВНУТРЕННИЙ СТАТИЧЕСКИЙ класс назавется ВЛОЖЕННЫМ СТАТИЧЕСКИМ КЛАССОМ(NESTED).
+    Такой класс(объект такого класса) НЕ ИМЕЕТ ССЫЛКУ на ВНЕШНИЙ класс(объект внешнего класса)!
 
-         static void printStatic() {
-            System.out.println("in static inner");
-        }
+    Статический ВЛОЖЕННЫЙ класс(Nested). Реализует интрерфейс SimpleInterface и
+    переопределяет его метод print().
+    Также класс Nested может иметь и свои СТАТИЧЕСКИЕ МЕТОДЫ, как например printStatic().
+
+     */
+
+    private static class Nested implements SimpleInterface {
 
         @Override
         public void print() {
             System.out.println("in inner class");
+        }
+
+        static void printStatic() {
+            System.out.println("in static inner");
         }
     }
 }
