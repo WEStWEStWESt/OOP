@@ -1,7 +1,17 @@
-package com.oop.examples;
+package com.oop.examples.basics;
+
+import com.oop.examples.SimpleInterface;
 
 public class Main {
     public static void main(String[] args) {
+        class Local extends AbstractClass {
+
+            @Override
+            public void print() {
+                PrintUtils.print(ClassTypes.LOCAL, getClass());
+            }
+        }
+        new Local().print();
         /*
        АНОМИМНЫЙ КЛАСС.
        0. Создаётся один раз в момент инициализации объекта.
@@ -20,22 +30,24 @@ public class Main {
        9. Может реализовывать только один интерфейс либо наследовать один класс.
 
        */
-        SimpleInterface anInterface = new SimpleInterface() {
-            // тело класса
+        SimpleInterface anonymous = new AbstractClass() {
+
+            @Override
+            public void print() {
+                PrintUtils.print(ClassTypes.ANONYMOUS, getClass());
+            }
         };
-        anInterface.print();
+        anonymous.print();
         // ----------------------------------------------------------------
-//        SimpleInterface simpleLambda = () -> System.out.println("in lambda");
-//        simpleLambda.print();
+        SimpleInterface lambda = () -> PrintUtils.print(ClassTypes.LAMBDA, Main.class);
+        lambda.print();
         // ----------------------------------------------------------------
 
-        class Local implements SimpleInterface {
-            // тело класса
-        }
-        new Local().print();
+        new EmptyClass().print();
 
         SimpleInterface simpleClass = new SimpleClass();
         simpleClass.print();
+
 
         SimpleInterface inner = new SimpleClass().new Inner();
         inner.print();
