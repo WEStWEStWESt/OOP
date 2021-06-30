@@ -21,34 +21,31 @@ public class Main {
 
        */
         SimpleInterface anInterface = new SimpleInterface() {
-            @Override
-            public void print() {
-                System.out.println("anonymous class without lambda");
-            }
+            // тело класса
         };
         anInterface.print();
         // ----------------------------------------------------------------
-        SimpleInterface simpleLambda = () -> System.out.println("in lambda");
-        simpleLambda.print();
+//        SimpleInterface simpleLambda = () -> System.out.println("in lambda");
+//        simpleLambda.print();
         // ----------------------------------------------------------------
 
-        SimpleClass jc = new SimpleClass();
-        System.out.println(jc.instanceVar);
+        class Local implements SimpleInterface {
+            // тело класса
+        }
+        new Local().print();
+
+        SimpleInterface simpleClass = new SimpleClass();
+        simpleClass.print();
 
         SimpleInterface inner = new SimpleClass().new Inner();
+        inner.print();
 
+        /* создание "экземпляра" (nested) интерфейса SimpleInterface.*/
+        SimpleInterface nested = new SimpleClass.Nested();
+        nested.print();
+
+        // ----------------------------------------------------------------
         SimpleClass.Nested.printStatic();
-        SimpleClass.Nested nestedPublicClass = new SimpleClass.Nested();
-        nestedPublicClass.print();
-        nestedPublicClass.print2();
-
-        /* создание "экземпляра" (nestedPublic) интерфейса SimpleInterface.*/
-        SimpleInterface nestedPublic = nestedPublicClass;
-        nestedPublic.print();
-
         // ----------------------------------------------------------------
-//        com.oop.examples.JustClass.Nested.printStatic();
-        // ----------------------------------------------------------------
-
     }
 }

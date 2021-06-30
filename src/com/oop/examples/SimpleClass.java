@@ -52,21 +52,17 @@ public class SimpleClass implements SimpleInterface {
     // Переменная экземпляра.
     public int instanceVar = 4;
 
+    /*
+    Переопределение метода НЕ ОБЯЗАТЕЛЬНО, т.к. интерфейса уже есть реализация по умолчанию(default).
+    Приведённое ниже переопределение метода НЕ ИМЕЕТ СМЫСЛА, т.к. полностью повторяет реализацию по умолчанию.
+
     @Override
     public void print() {
-        new Inner().text();
+        System.out.println("in [" + getClass() + "], method [" + Thread.currentThread().getStackTrace()[1].getMethodName() + "].");
     }
+    */
 
     public class Inner implements SimpleInterface {
-
-        @Override
-        public void print() {
-            System.out.println("in inner override");
-        }
-
-        public void text() {
-            System.out.println("text from Nothing class.");
-        }
         /*
         Нельзя создать СТАТИЧЕСКИЙ МЕТОД в НЕСТАТИЧЕСКОМ ВНУТРЕННЕМ классе,
         т.к.статический метод или класс НЕ ХРАНИТ СОСТОЯНИЕ ВНЕШНЕГО КЛАССА(не содержат ссылку на него).
@@ -76,17 +72,11 @@ public class SimpleClass implements SimpleInterface {
 
     public static class Nested implements SimpleInterface {
 
-        @Override
-        public void print() {
-            System.out.println("Override method in NESTED class.");
-        }
-
-        void print2() {
-            System.out.println("Not static method(NESTED class).");
-        }
-
-        static void printStatic() {
-            System.out.println("Static method(NESTED class).");
+        /* В статическом методе невозможно обратиться к методу getClass(),
+           т.к. СТАТИЧЕСКИЙ МЕТОД НЕ ИМЕЕТ СОСТОЯНИЯ(нет экземпляра [this.]).
+           */
+        public static void printStatic() {
+            System.out.println("inside [" + Nested.class + "], method [" + Thread.currentThread().getStackTrace()[1].getMethodName() + "].");
         }
     }
 }
