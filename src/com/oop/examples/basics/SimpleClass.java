@@ -1,4 +1,4 @@
-package com.oop.examples;
+package com.oop.examples.basics;
 
 /*
     ВНУТРЕННИЙ СТАТИЧЕСКИЙ класс назавется ВЛОЖЕННЫМ СТАТИЧЕСКИМ КЛАССОМ(NESTED).
@@ -38,7 +38,7 @@ package com.oop.examples;
         }
      */
 
-public class SimpleClass implements SimpleInterface {
+public class SimpleClass extends AbstractClass {
 
     // КОНСТАНТА КЛАССА.
     public static final int CLASS_CONST = 1;
@@ -52,17 +52,34 @@ public class SimpleClass implements SimpleInterface {
     // Переменная экземпляра.
     public int instanceVar = 4;
 
-    /*
-    Переопределение метода НЕ ОБЯЗАТЕЛЬНО, т.к. интерфейса уже есть реализация по умолчанию(default).
-    Приведённое ниже переопределение метода НЕ ИМЕЕТ СМЫСЛА, т.к. полностью повторяет реализацию по умолчанию.
+    @Override
+    public void print() {
+        PrintUtils.print(ClassTypes.CLASS, getClass());
+    }
+
+     /*
+    Переопределение метода НЕ ОБЯЗАТЕЛЬНО, если у суперласса уже есть реализация.
+    Приведённое ниже переопределение метода НЕ ИМЕЕТ СМЫСЛА, если оно полностью повторяет реализацию суперкласса
+    или напрямую вызывает метод суперкласса через ключевое слово super.
 
     @Override
     public void print() {
-        System.out.println("in [" + getClass() + "], method [" + Thread.currentThread().getStackTrace()[1].getMethodName() + "].");
+        PrintUtils.print(ClassTypes.ABSTRACT, getClass());
+    }
+
+    @Override
+    public void print() {
+        super.print();
     }
     */
 
-    public class Inner implements SimpleInterface {
+    public class Inner extends AbstractClass {
+
+        @Override
+        public void print() {
+            PrintUtils.print(ClassTypes.INNER, getClass());
+        }
+
         /*
         Нельзя создать СТАТИЧЕСКИЙ МЕТОД в НЕСТАТИЧЕСКОМ ВНУТРЕННЕМ классе,
         т.к.статический метод или класс НЕ ХРАНИТ СОСТОЯНИЕ ВНЕШНЕГО КЛАССА(не содержат ссылку на него).
@@ -70,13 +87,18 @@ public class SimpleClass implements SimpleInterface {
         } */
     }
 
-    public static class Nested implements SimpleInterface {
+    public static class Nested extends AbstractClass {
+
+        @Override
+        public void print() {
+            PrintUtils.print(ClassTypes.NESTED, getClass());
+        }
 
         /* В статическом методе невозможно обратиться к методу getClass(),
-           т.к. СТАТИЧЕСКИЙ МЕТОД НЕ ИМЕЕТ СОСТОЯНИЯ(нет экземпляра [this.]).
-           */
+                   т.к. СТАТИЧЕСКИЙ МЕТОД НЕ ИМЕЕТ СОСТОЯНИЯ(нет экземпляра [this.]).
+                   */
         public static void printStatic() {
-            System.out.println("inside [" + Nested.class + "], method [" + Thread.currentThread().getStackTrace()[1].getMethodName() + "].");
+            PrintUtils.print(ClassTypes.NESTED, Nested.class);
         }
     }
 }

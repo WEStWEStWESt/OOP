@@ -1,9 +1,13 @@
-package com.oop.examples;
+package com.oop.examples.basics;
 
 public final class PrintUtils {
 
     public static void print(Class<?> type) {
-        System.out.println("inside [" + type + "], method [" + Thread.currentThread().getStackTrace()[2].getMethodName() + "].");
+        print(ClassTypes.CLASS, type);
+    }
+
+    public static void print(ClassTypes classType, Class<?> type) {
+        System.out.println("type [" + classType + "] inside [" + type + "], method [" + Thread.currentThread().getStackTrace()[2].getMethodName() + "].");
     }
         /* Т.к getClass() не хранит состояния объекта(экземпляра), чтобы получить имя ТЕКУЩЕГО метода,
        необходимо обращаться к стеку. Экземпляры классов Thread, Exception или Throwable
