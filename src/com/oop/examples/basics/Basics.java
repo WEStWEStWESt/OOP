@@ -1,8 +1,10 @@
 package com.oop.examples.basics;
 
+import com.oop.examples.PrintUtils;
 import com.oop.examples.SimpleInterface;
 
-public class Main {
+public class Basics {
+
     public static void main(String[] args) {
         class Local extends AbstractClass {
 
@@ -39,7 +41,7 @@ public class Main {
         };
         anonymous.print();
         // ----------------------------------------------------------------
-        SimpleInterface lambda = () -> PrintUtils.print(ClassTypes.LAMBDA, Main.class);
+        SimpleInterface lambda = () -> PrintUtils.print(ClassTypes.LAMBDA, Basics.class);
         lambda.print();
         // ----------------------------------------------------------------
 
@@ -47,7 +49,6 @@ public class Main {
 
         SimpleInterface simpleClass = new SimpleClass();
         simpleClass.print();
-
 
         SimpleInterface inner = new SimpleClass().new Inner();
         inner.print();

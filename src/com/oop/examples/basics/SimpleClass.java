@@ -38,6 +38,8 @@ package com.oop.examples.basics;
         }
      */
 
+import com.oop.examples.PrintUtils;
+
 public class SimpleClass extends AbstractClass {
 
     // КОНСТАНТА КЛАССА.
