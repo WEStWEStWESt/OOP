@@ -1,6 +1,5 @@
 package com.oop.examples;
 
-import com.oop.examples.basics.ClassTypes;
 import com.oop.examples.scope.ScopeTypes;
 
 public final class PrintUtils {
