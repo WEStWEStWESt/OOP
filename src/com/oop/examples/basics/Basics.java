@@ -7,6 +7,15 @@ import com.oop.examples.SimpleInterface;
 public class Basics {
 
     public static void main(String[] args) {
+        /*
+        ЛОКАЛЬНЫЙ КЛАСС.
+        1. Объявляется в рамках одного метода.
+        2. Не может быть статическим.
+        3. Может быть абстрактным.
+        4. Объект локального класса не может создаваться за пределами метода или блока, в котором его объявили.
+        5. В локальных классах нельзя объявлять статические инициализаторы (блоки инициализации) или интерфейсы.
+           Но у локальных классов могут быть статические члены при условии, что они постоянные переменные (static final).
+        */
         class Local extends AbstractClass {
 
             @Override
@@ -20,7 +29,7 @@ public class Basics {
        0. Создаётся один раз в момент инициализации объекта.
        1. Не имеет имени.
        2. Не имеет явного конструктора(можно вызвать конструктор суперкласса!).
-       3. Не доступен кслассам извне,за исключением
+       3. Не доступен классам извне,за исключением
            неявного обращения посредством объектной ссылки
            на суперкласс или интерфейс.
        4. НИКОГДА не могут быть СТАТИЧЕСКИМИ или АБСТРАКТНЫМИ.
@@ -50,11 +59,12 @@ public class Basics {
 
         SimpleInterface simpleClass = new SimpleClass();
         simpleClass.print();
-
+        // inner - внутренний
         SimpleInterface inner = new SimpleClass().new Inner();
         inner.print();
 
-        /* создание "экземпляра" (nested) интерфейса SimpleInterface.*/
+        /* nested -
+        создание "экземпляра" (nested) интерфейса SimpleInterface.*/
         SimpleInterface nested = new SimpleClass.Nested();
         nested.print();
 
