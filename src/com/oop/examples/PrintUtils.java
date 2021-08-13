@@ -3,15 +3,20 @@ package com.oop.examples;
 import com.oop.examples.scope.ScopeTypes;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 public final class PrintUtils {
+
+    public static final String METHOD_PRINT_FORMAT = "type [%s] inside [%s], method [%s]%s%s\n";
 
     public static void print(Class<?> type) {
         print(ClassTypes.CLASS, type);
     }
 
     public static void print(ClassTypes classType, Class<?> type) {
-        System.out.println("type [" + classType + "] inside [" + type + "], method [" + Thread.currentThread().getStackTrace()[2].getMethodName() + "].");
+        System.out.printf(METHOD_PRINT_FORMAT, classType, type,
+                Thread.currentThread().getStackTrace()[2].getMethodName(), ".", classType.getDescription());
     }
 
     /* Т.к getClass() не хранит состояния объекта(экземпляра), чтобы получить имя ТЕКУЩЕГО метода,
@@ -61,5 +66,14 @@ public final class PrintUtils {
             value = "Unknown field";
         }
         print(value, type);
+    }
+
+    public static void print(ClassTypes classType, Method method) {
+        System.out.printf(METHOD_PRINT_FORMAT, classType, method.getDeclaringClass(), method.getName(),
+                String.format(" with modifier [%s].", Modifier.toString(method.getModifiers())));
+    }
+
+    public static void print(Method method) {
+        print(ClassTypes.CLASS, method);
     }
 }
