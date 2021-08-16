@@ -70,7 +70,8 @@ public final class PrintUtils {
 
     public static void print(ClassTypes classType, Method method) {
         System.out.printf(METHOD_PRINT_FORMAT, classType, method.getDeclaringClass(), method.getName(),
-                String.format(" with modifier [%s].", Modifier.toString(method.getModifiers())));
+                String.format(" with modifier [%s].", Modifier.toString(method.getModifiers())),
+                classType.getDescription());
     }
 
     public static void print(Method method) {

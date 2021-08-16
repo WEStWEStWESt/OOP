@@ -57,7 +57,7 @@ public class SimpleClass extends AbstractClass {
 
     @Override
     public void print() {
-        PrintUtils.print(ClassTypes.CLASS, getClass());
+        PrintUtils.print(getClass());
     }
 
      /*
