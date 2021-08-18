@@ -77,4 +77,14 @@ public final class PrintUtils {
     public static void print(Method method) {
         print(ClassTypes.CLASS, method);
     }
+
+    public static void printMethod(Class<?> type) {
+        String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
+        try {
+            Method declaredMethod = type.getDeclaredMethod(methodName);
+            print(declaredMethod);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+    }
 }

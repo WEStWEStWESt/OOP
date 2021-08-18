@@ -1,11 +1,9 @@
 package com.oop.examples.scope;
 
+import com.oop.examples.PrintUtils;
 import com.oop.examples.SimpleInterface;
 
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-
-public class ScopeClass implements SimpleInterface{
+public class ScopeClass implements SimpleInterface {
 
     public static final ScopeTypes PUBLIC_CONST = ScopeTypes.PUBLIC;
     protected static final ScopeTypes PROTECTED_CONST = ScopeTypes.PROTECTED;
@@ -14,12 +12,7 @@ public class ScopeClass implements SimpleInterface{
 
     @Override
     public void print() {
-        try {
-            Method print = getClass().getDeclaredMethod("print");
-            Modifier.toString(print.getModifiers());
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
+        PrintUtils.printMethod(getClass());
     }
 
     private static class Nested implements SimpleInterface {

@@ -9,5 +9,8 @@ public class Scopes {
         PrintUtils.print(ScopeClass.PROTECTED_CONST, ScopeClass.class);
         PrintUtils.print(ScopeClass.PACKAGE_CONST, ScopeClass.class);
         PrintUtils.printStaticPrivate("PRIVATE_CONST", ScopeClass.class);
+
+        ScopeClass scopeClass = new ScopeClass();
+        scopeClass.print();
     }
 }
