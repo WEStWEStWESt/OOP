@@ -15,6 +15,14 @@ public class ScopeClass implements SimpleInterface {
         PrintUtils.printMethod(getClass());
     }
 
+    protected void printProtected() {
+        PrintUtils.printMethod(getClass());
+    }
+
+    void printPackagePrivate() {
+        PrintUtils.printMethod(getClass());
+    }
+
     private static class Nested implements SimpleInterface {
 
         @Override

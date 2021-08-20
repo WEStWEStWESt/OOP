@@ -1,6 +1,7 @@
 package com.oop.examples.scope;
 
 import com.oop.examples.PrintUtils;
+import com.oop.examples.scope.impl.ExtendedClass;
 
 public class Scopes {
 
@@ -12,5 +13,10 @@ public class Scopes {
 
         ScopeClass scopeClass = new ScopeClass();
         scopeClass.print();
+
+        ExtendedClass extendedClass = new ExtendedClass();
+        extendedClass.printProtected();
+
+        scopeClass.printPackagePrivate();
     }
 }

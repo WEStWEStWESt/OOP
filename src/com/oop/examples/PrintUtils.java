@@ -69,8 +69,12 @@ public final class PrintUtils {
     }
 
     public static void print(ClassTypes classType, Method method) {
+        String modifier = Modifier.toString(method.getModifiers());
+        if ("".equals(modifier)) {
+            modifier = "package-private";
+        }
         System.out.printf(METHOD_PRINT_FORMAT, classType, method.getDeclaringClass(), method.getName(),
-                String.format(" with modifier [%s].", Modifier.toString(method.getModifiers())),
+                String.format(" with modifier [%s].", modifier),
                 classType.getDescription());
     }
 
@@ -84,7 +88,7 @@ public final class PrintUtils {
             Method declaredMethod = type.getDeclaredMethod(methodName);
             print(declaredMethod);
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            System.out.println("Method [" + methodName + "] in class [" + type.getSimpleName() + "] is not found.");
         }
     }
 }
