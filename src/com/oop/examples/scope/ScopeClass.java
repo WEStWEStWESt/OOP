@@ -13,6 +13,8 @@ public class ScopeClass implements SimpleInterface {
     @Override
     public void print() {
         PrintUtils.printMethod(getClass());
+        printPrivate();
+        Nested.printNestedStatic();
     }
 
     protected void printProtected() {
@@ -23,6 +25,10 @@ public class ScopeClass implements SimpleInterface {
         PrintUtils.printMethod(getClass());
     }
 
+    private void printPrivate() {
+        PrintUtils.printMethod(getClass());
+    }
+
     private static class Nested implements SimpleInterface {
 
         @Override
@@ -30,12 +36,8 @@ public class ScopeClass implements SimpleInterface {
             System.out.println("Override method in nested class.");
         }
 
-        void print2() {
-            System.out.println("Not static method.");
-        }
-
-        static void printStatic() {
-            System.out.println("Static method.");
+        static void printNestedStatic() {
+            PrintUtils.printMethod(Nested.class);
         }
     }
 }

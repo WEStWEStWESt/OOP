@@ -70,7 +70,8 @@ public final class PrintUtils {
 
     public static void print(ClassTypes classType, Method method) {
         String modifier = Modifier.toString(method.getModifiers());
-        if ("".equals(modifier)) {
+        if ("".equals(modifier) //TODO add a condition to verify package-private static
+         ) {
             modifier = "package-private";
         }
         System.out.printf(METHOD_PRINT_FORMAT, classType, method.getDeclaringClass(), method.getName(),
