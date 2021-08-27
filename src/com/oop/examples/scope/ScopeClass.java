@@ -1,5 +1,6 @@
 package com.oop.examples.scope;
 
+import com.oop.examples.ClassTypes;
 import com.oop.examples.PrintUtils;
 import com.oop.examples.SimpleInterface;
 
@@ -37,7 +38,7 @@ public class ScopeClass implements SimpleInterface {
         }
 
         static void printNestedStatic() {
-            PrintUtils.printMethod(Nested.class);
+            PrintUtils.printMethod(ClassTypes.NESTED, Nested.class);
         }
     }
 }

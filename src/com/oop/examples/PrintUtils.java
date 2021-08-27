@@ -5,10 +5,12 @@ import com.oop.examples.scope.ScopeTypes;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Set;
 
 public final class PrintUtils {
 
     public static final String METHOD_PRINT_FORMAT = "type [%s] inside [%s], method [%s]%s%s\n";
+    public static final Set<String> MODIFIERS = Set.of("private", "protected", "public");
 
     public static void print(Class<?> type) {
         print(ClassTypes.CLASS, type);
@@ -29,6 +31,17 @@ public final class PrintUtils {
 */
     public static void print(Object scopeType, Class<?> type) {
         System.out.println("[" + scopeType + "] variable of [" + type + "].");
+    }
+
+    public static void print(ClassTypes classType, Method method) {
+        String modifier = resolveModifier(method);
+        System.out.printf(METHOD_PRINT_FORMAT, classType, method.getDeclaringClass(), method.getName(),
+                String.format(" with modifier [%s].", modifier),
+                classType.getDescription());
+    }
+
+    public static void print(Method method) {
+        print(ClassTypes.CLASS, method);
     }
 
     /**
@@ -68,28 +81,41 @@ public final class PrintUtils {
         print(value, type);
     }
 
-    public static void print(ClassTypes classType, Method method) {
-        String modifier = Modifier.toString(method.getModifiers());
-        if ("".equals(modifier) //TODO add a condition to verify package-private static
-         ) {
-            modifier = "package-private";
-        }
-        System.out.printf(METHOD_PRINT_FORMAT, classType, method.getDeclaringClass(), method.getName(),
-                String.format(" with modifier [%s].", modifier),
-                classType.getDescription());
-    }
-
-    public static void print(Method method) {
-        print(ClassTypes.CLASS, method);
-    }
-
     public static void printMethod(Class<?> type) {
-        String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
+        printMethod(ClassTypes.CLASS, type);
+    }
+
+    public static void printMethod(ClassTypes classTypes, Class<?> type) {
+        String methodName = resolveMethodName();
         try {
             Method declaredMethod = type.getDeclaredMethod(methodName);
-            print(declaredMethod);
+            print(classTypes, declaredMethod);
         } catch (NoSuchMethodException e) {
             System.out.println("Method [" + methodName + "] in class [" + type.getSimpleName() + "] is not found.");
         }
+    }
+
+    private static String resolveModifier(Method method) {
+        String modifier = Modifier.toString(method.getModifiers());
+        String firstModifier = modifier.contains(" ") ? modifier.substring(0, modifier.indexOf(" ")) : modifier;
+        if ("".equals(modifier) || !MODIFIERS.contains(firstModifier)) {
+            modifier = "package-private";
+        } else {
+            modifier = firstModifier;
+        }
+        return modifier;
+    }
+
+    private static String resolveMethodName() {
+        StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+        for (StackTraceElement element : stackTraceElements) {
+            if (Thread.class.getName().equals(element.getClassName())) {
+                continue;
+            }
+            if (!PrintUtils.class.getName().equals(element.getClassName())) {
+                return element.getMethodName();
+            }
+        }
+        return "Unknown method";
     }
 }
