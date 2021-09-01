@@ -15,7 +15,7 @@ public class ReferenceClass implements Reference{
 
     @Override
     public String apply(Function<String, String> function) {
-        return function.apply(value);
+        return function.apply( "result [" + value + "] obtained via Function");
     }
 
     @Override
