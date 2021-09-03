@@ -1,12 +1,15 @@
 package com.oop.examples.lambdas;
 
+import java.util.Objects;
+
 public class Lambdas {
     public static void main(String[] args) {
-
         String initial = "value";
-
         Reference reference = new ReferenceClass(initial);
-        String actual = reference.apply(referenceClassField -> referenceClassField);// = reference.apply(Function.identity());
+        String actual = reference.apply(referenceClassField -> {
+            return referenceClassField;
+        });
+        // = reference.apply(Function.identity());
         System.out.println(actual);
 
         /*
@@ -51,6 +54,13 @@ public class Lambdas {
         reference.consume(Lambdas::print);
         reference.consume(referenceClassField ->
                 System.out.println("result [" + referenceClassField + "] printed via Consumer."));
+
+        reference.supply(String::new);
+        reference.supply(() -> new String());
+
+        System.out.println(reference.predicate(referenceClassField -> referenceClassField == null));
+        /*System.out.println(reference.predicate(Objects::nonNull));
+        System.out.println(reference.predicate(initial::equals));*/
 
     }
 
